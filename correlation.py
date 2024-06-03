@@ -1,7 +1,5 @@
 import json
 from math import sqrt
-from sys import argv
-script, json_file = argv
 
 def load_journal(json_file):
     file = open(json_file)
@@ -14,7 +12,6 @@ def compute_phi(journal_file, event):
     n_11, n_00, n_10, n_01 = 0, 0, 0, 0
     
     for i in journal_file:
-        # print("i of event is :",i["events"])
         if event in i['events'] and i['squirrel'] == True:
             n_11 += 1  # Both event and squirrel transformation happened
         elif event not in i['events'] and i['squirrel'] == False:
@@ -29,7 +26,7 @@ def compute_phi(journal_file, event):
     return phi
 
 
-def compute_correlations():
+def compute_correlations(json_file):
     journal_file = load_journal(json_file)
     events = set()
     correlations = {}
@@ -47,10 +44,8 @@ def compute_correlations():
     return correlations
 
 
-def diagnose():
-    correlations = compute_correlations()
-
-    print("correlations is ", correlations)
+def diagnose(json_file):
+    correlations = compute_correlations(json_file)
     most_positive_event = ""
     most_negative_event = ""
     max_correlation = -1  # Start with a minimum possible correlation
@@ -69,8 +64,7 @@ def diagnose():
     return most_positive_event, most_negative_event, max_correlation, min_correlation
 
 
-if __name__ == "__main__":
-    print("diagnose",diagnose())
-    most_positive, most_negative, max_correlation, min_correlation = diagnose()
+if __name__ == "__main__":   
+    most_positive, most_negative, max_correlation, min_correlation = diagnose("journal.json")
     print("Most positive event:", most_positive, "correlation:",max_correlation)
     print("Most negative event:", most_negative, "correlation:",min_correlation)
