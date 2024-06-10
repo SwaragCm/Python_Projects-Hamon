@@ -141,8 +141,9 @@ def handle_player_guess(word):
             print("Chances remaining:", chance)
             if chance == 0:
                 print("You Loose, TRY AGAIN !!!")
+                print("Correct Word : ",word)
                 print(hangman[-1])
-                sleep(1)
+                sleep(1.7)
                 return start()
             else:
                 print(hangman[6 - chance])            
@@ -168,8 +169,9 @@ def handle_player_guess(word):
             # If the player has no more chances left, they lose the game. The hangman is fully displayed, and re-start.
             if chance == 0:
                 print("You Loose, TRY AGAIN !!!")
+                print("Correct Word : ",word)
                 print(hangman[-1])
-                sleep(1)
+                sleep(1.7)
                 return start()                               
             else:
                 # player still has chances remaining, the corresponding part of the hangman is displayed based on the remaining chances.
